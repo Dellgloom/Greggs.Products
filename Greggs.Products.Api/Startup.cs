@@ -1,3 +1,9 @@
+using Greggs.Products.Api.DataAccess;
+using Greggs.Products.Api.Models;
+using Greggs.Products.Api.Repositories;
+using Greggs.Products.Api.Repositories.Interfaces;
+using Greggs.Products.Api.Services;
+using Greggs.Products.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +16,12 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-
         services.AddSwaggerGen();
+        
+        services.AddScoped<IDataAccess<Product>, ProductAccess>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<ICurrencyExchangeService, CurrencyExchangeService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
