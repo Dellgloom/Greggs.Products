@@ -3,5 +3,5 @@
 public enum Currency
 {
     Gbp,
-    Eur,
+    Eur
 }

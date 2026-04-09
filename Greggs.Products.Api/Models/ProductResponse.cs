@@ -4,5 +4,7 @@ public class ProductResponse
 {
     public string Name { get; set; }
 
-    public string Price { get; set; }
+    public string FormattedPrice { get; set; }
+
+    public decimal RawPrice { get; set; }
 }

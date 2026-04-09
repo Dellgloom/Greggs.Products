@@ -5,11 +5,11 @@ using Greggs.Products.Api.Models;
 namespace Greggs.Products.Api.DataAccess;
 
 /// <summary>
-/// DISCLAIMER: This is only here to help enable the purpose of this exercise, this doesn't reflect the way we work!
+///     DISCLAIMER: This is only here to help enable the purpose of this exercise, this doesn't reflect the way we work!
 /// </summary>
 public class ProductAccess : IDataAccess<Product>
 {
-    private static readonly IEnumerable<Product> ProductDatabase = new List<Product>()
+    private static readonly IEnumerable<Product> ProductDatabase = new List<Product>
     {
         new() { Name = "Sausage Roll", PriceInPounds = 1m },
         new() { Name = "Vegan Sausage Roll", PriceInPounds = 1.1m },

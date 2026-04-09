@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Greggs.Products.Api.Models;
 using Greggs.Products.Api.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,10 +22,18 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetProducts(int pageStart = 0, int pageSize = 5, Currency currency = Currency.Gbp)
+    [ProducesResponseType(typeof(IEnumerable<ProductResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IEnumerable<ProductResponse>>> GetProducts(int pageStart = 0, int pageSize = 5,
+        Currency currency = Currency.Gbp)
     {
+        _logger.LogInformation(
+            "GetProducts called with pageStart: {PageStart}, pageSize: {PageSize}, currency: {Currency}", pageStart,
+            pageSize, currency);
+
         var products = await _productService.GetProducts(pageStart, pageSize, currency);
-        
+
         return Ok(products);
     }
 }

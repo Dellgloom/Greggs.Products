@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Greggs.Products.Api.Models;
+﻿using Greggs.Products.Api.Models;
 
 namespace Greggs.Products.Api.Services.Interfaces;
 
