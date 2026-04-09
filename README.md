@@ -1,39 +1,33 @@
-# Greggs.Products
-## Introduction
-Hello and welcome to the Greggs Products repository, thanks for finding it!
+# Greggs Products API
 
-## The Solution
-So at the moment the api is currently returning a random selection from a fixed set of Greggs products directly 
-from the controller itself. We currently have a data access class and it's interface but 
-it's not plugged in (please ignore the class itself, we're pretending it hits a database),
-we're also going to pretend that the data access functionality is fully tested so we don't need 
-to worry about testing those lines of functionality.
+## Overview
+Brief description of what the API does.
 
-We're mainly looking for the way you work, your code structure and how you would approach tackling the following 
-scenarios.
+## What I Did
 
-## User Stories
-Our product owners have asked us to implement the following stories, we'd like you to have 
-a go at implementing them. You can use whatever patterns you're used to using or even better 
-whatever patterns you would like to use to achieve the goal. Anyhow, back to the 
-user stories:
+### Task 1 - Real Product Data
+Replaced the static random product list with a proper data access layer using the existing `IDataAccess<Product>` implementation.
 
-### User Story 1
-**As a** Greggs Fanatic<br/>
-**I want to** be able to get the latest menu of products rather than the random static products it returns now<br/>
-**So that** I get the most recently available products.
+### Task 2 - Currency Conversion
+Added an optional `currency` query parameter (defaults to GBP) that applies an exchange rate multiplier to product prices. Supported currencies are GBP and EUR.
 
-**Acceptance Criteria**<br/>
-**Given** a previously implemented data access layer<br/>
-**When** I hit a specified endpoint to get a list of products<br/>
-**Then** a list or products is returned that uses the data access implementation rather than the static list it current utilises
+## Architecture
+The solution follows an N-tier layered architecture:
+- **Controller** - handles HTTP concerns only
+- **Service** - business logic, validation, currency conversion
+- **Repository** - abstracts the data access layer
+- **DataAccess** - existing in-memory data store (unchanged)
 
-### User Story 2
-**As a** Greggs Entrepreneur<br/>
-**I want to** get the price of the products returned to me in Euros<br/>
-**So that** I can set up a shop in Europe as part of our expansion
+### Async Implementation
+Although the data access layer uses an in-memory list rather than a real database, async has been
+implemented throughout the full stack — controller, service, and repository. The synchronous data
+access call is wrapped in `Task.FromResult` at the repository level, simulating how the code would
+behave with a real database connection (e.g. Entity Framework Core). Replacing the in-memory
+implementation with a real database would require no changes to the layers above the repository.
 
-**Acceptance Criteria**<br/>
-**Given** an exchange rate of 1GBP to 1.11EUR<br/>
-**When** I hit a specified endpoint to get a list of products<br/>
-**Then** I will get the products and their price(s) returned
+## Assumptions
+- Exchange rate of 1 GBP to 1.11 EUR is hardcoded as per the acceptance criteria
+- PageStart defaults to 0 and PageSize defaults to 5
+
+## Testing
+The solution includes unit tests for each layer and integration tests for the exception handling middleware.

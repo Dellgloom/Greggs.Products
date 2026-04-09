@@ -21,6 +21,13 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
+    /// <summary>
+    ///     Gets a list of products and their prices in the given currency.
+    /// </summary>
+    /// <param name="pageStart">The index to start the page from. Defaults to 0.</param>
+    /// <param name="pageSize">The number of products to return. Defaults to 5.</param>
+    /// <param name="currency">The currency in which prices are returned. Defaults to GBP.</param>
+    /// <returns>A list of products with prices formatted in the given currency.</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ProductResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

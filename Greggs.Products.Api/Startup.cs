@@ -22,11 +22,8 @@ public class Startup
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
-        
-        services.AddSwaggerGen(options =>
-        {
-            options.UseInlineDefinitionsForEnums();
-        });
+
+        services.AddSwaggerGen(options => { options.UseInlineDefinitionsForEnums(); });
 
         services.AddScoped<IDataAccess<Product>, ProductAccess>();
         services.AddScoped<IProductRepository, ProductRepository>();

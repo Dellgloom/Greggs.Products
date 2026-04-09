@@ -21,6 +21,12 @@ public class CurrencyExchangeService : ICurrencyExchangeService
         _logger = logger;
     }
 
+    /// <summary>
+    ///     Gets the symbol and exchange rate for the given currency.
+    /// </summary>
+    /// <param name="currency">The target currency</param>
+    /// <returns>A tuple containing the symbol and the exchange rate multiplier for the currency.</returns>
+    /// <exception cref="NotSupportedException">Thrown when a given currency is not supported.</exception>
     public (string Symbol, decimal Rate) GetExchangeRate(Currency currency)
     {
         if (!CurrencyLookup.TryGetValue(currency, out var value))
