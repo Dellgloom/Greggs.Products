@@ -1,8 +1,5 @@
 # Greggs Products API
 
-## Overview
-Brief description of what the API does.
-
 ## What I Did
 
 ### Task 1 - Real Product Data
